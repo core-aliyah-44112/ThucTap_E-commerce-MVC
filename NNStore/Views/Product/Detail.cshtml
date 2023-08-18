@@ -1,0 +1,305 @@
+﻿@model NNStore.Context.Product
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!-- ========================= SECTION CONTENT ========================= -->
+<script type="text/javascript">
+        $(function () {
+            $("#addtocart").click(function () {
+                var model = {};
+                //lấy id sản phẩm
+                model.Id = @Model.Id;
+                // lấy số lượng đặt hàng
+                model.Price =@Model.Price;
+                //
+                model.Quantity = $("#ipQuantity").val();
+                //
+                debugger;
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("AddToCart", "Cart",new {id="cartLink"})',
+                    data: JSON.stringify(model),
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    success: function () {
+                        alert("Thêm giỏ hàng thành công!")
+                        $('#CartCount').text(@Session["count"] + 1);
+                    },
+                    error: function () {
+                        alert("Lỗi trong khi thêm vào giỏ hàng!");
+                    }
+                });
+                return false;
+            });
+        });
+    </script>
+
+<div class="product-big-title-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="product-bit-title text-center">
+                    <h2>Chi tiết sản phẩm</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="single-product-area">
+    <div class="zigzag-bottom"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="single-sidebar">
+                    <h2 class="sidebar-title">Tìm kiếm sản phẩm</h2>
+                    <form action="">
+                        <input type="text" placeholder="Nhập tên sản phẩm...">
+                        <input type="submit" value="Tìm kiếm">
+                    </form>
+                </div>
+
+                <div class="single-sidebar">
+                    <h2 class="sidebar-title">Sản phẩm tương tự</h2>
+                   
+                            
+                            <div class="thubmnail-recent">
+                                <img src="~/Content/img/Product/@Model.Img" class="recent-thumb" alt="">
+                                <h2><a href="">@Model.Name</a></h2>
+                                <div class="product-sidebar-price">
+                                    <ins>@Model.Price VNĐ</ins> <del>@Model.Price VNĐ</del>
+                                </div>
+                            </div>
+                      
+
+
+
+
+                    <div class="thubmnail-recent">
+                        <img src="~/Content/img/Product/oneplus-nord-n10-5g-den-600x600-200x200.jpg" class="recent-thumb" alt="">
+                        <h2><a href="https://localhost:44397/Product/Detail/32">One Plus Nord N10</a></h2>
+                        <div class="product-sidebar-price">
+                            <ins>@Model.Price VNĐ</ins> <del>@Model.PriceSale VNĐ</del>
+                        </div>
+                    </div>
+                    <div class="thubmnail-recent">
+                        <img src="~/Content/img/Product/samsung-galaxy-s21-tim-600x600-600x600.jpg" class="recent-thumb" alt="">
+                        <h2><a href="https://localhost:44397/Product/Detail/9">Samsung Galaxy S21</a></h2>
+                        <div class="product-sidebar-price">
+                            <ins>@Model.Price VNĐ</ins> <del>@Model.PriceSale VNĐ</del>
+                        </div>
+                    </div>
+                    <div class="thubmnail-recent">
+                        <img src="~/Content/img/Product/huawei-nova-8-pro-600x600-600x600.jpg" class="recent-thumb" alt="">
+                        <h2><a href="https://localhost:44397/Product/Detail/30">Huawei Nova 8 Pro</a></h2>
+                        <div class="product-sidebar-price">
+                            <ins>@Model.Price VNĐ</ins> <del>@Model.PriceSale VNĐ</del>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="single-sidebar">
+                    <h2 class="sidebar-title">Chung chủ đề</h2>
+                    <ul>
+                        <li><a href="https://localhost:44397/Product/Detail/16">Oppo Reno 4</a></li>
+                        <li><a href="https://localhost:44397/Product/Detail/17">Asus Rog Phone 3</a></li>
+                        <li><a href="https://localhost:44397/Product/Detail/21">Xiaomi Black Shark 4</a></li>
+                        <li><a href="https://localhost:44397/Product/Detail/24">Vivo V20</a></li>
+                        <li><a href="https://localhost:44397/Product/Detail/30">Huawei Nova 8 Pro</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+                <div class="product-content-right">
+                    @*<div class="product-breadcroumb">
+                        <a href="">Home</a>
+                        <a href="">Category Name</a>
+                        <a href="">Sony Smart TV - 2015</a>
+                    </div>*@
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="product-images">
+                                <div class="product-main-img">
+                                    <img src="~/Content/img/Product/@Model.Img" alt="">
+                                </div>
+
+                                @*<div class="product-gallery">
+                                    <img src="~/Content/img/Product/@Model.Img" alt="">
+                                    <img src="~/Content/img/Product/@Model.Img" alt="">
+                                    <img src="~/Content/img/Product/@Model.Img" alt="">
+                                </div>*@
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="product-inner">
+                                <h2 class="product-name">@Model.Name</h2>
+                                <div class="product-inner-price">
+                                    <ins>@Model.Price VNĐ</ins> <del>@Model.PriceSale VNĐ</del>
+                                </div>
+
+                                <div class="form-row mt-4">
+                                    <div class=" form-group col-md flex-grow-0">
+                                        <div class="input-group mb-3 input-spinner">
+                                            <input type="text" id="ipQuantity" class="form-control" value="1" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md">
+                                        <a href="#" id="addtocart" class="btn  btn-primary">
+                                            <i class="fas fa-shopping-cart"></i>
+                                            <span class="text">Thêm vào giỏ hàng</span>
+                                        </a>
+                                    </div> <!-- col.// -->
+                                </div>
+
+                                @*<div class="product-inner-category">
+            <p>Category: <a href="">Summer</a>. Tags: <a href="">awesome</a>, <a href="">best</a>, <a href="">sale</a>, <a href="">shoes</a>. </p>
+        </div>*@
+
+                                <div role="tabpanel">
+                                    <ul class="product-tab" role="tablist">
+                                        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Chi tiết</a></li>
+                                        <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab"></a></li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div role="tabpanel" class="tab-pane fade in active" id="home">
+                                            <h2>Chi tiết sản phẩm</h2>
+                                            <p>@Model.ShortDes</p>
+                                            <p>@Model.FullDescription</p>
+                                        </div>
+                                        @*<div role="tabpanel" class="tab-pane fade" id="profile">
+                    <h2>Reviews</h2>
+                    <div class="submit-review">
+                        <p><label for="name">Name</label> <input name="name" type="text"></p>
+                        <p><label for="email">Email</label> <input name="email" type="email"></p>
+                        <div class="rating-chooser">
+                            <p>Your rating</p>
+
+                            <div class="rating-wrap-post">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                        </div>
+                        <p><label for="review">Your review</label> <textarea name="review" id="" cols="30" rows="10"></textarea></p>
+                        <p><input type="submit" value="Submit"></p>
+                    </div>
+                </div>*@
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="related-products-wrapper">
+                        <h2 class="related-products-title">Xem thêm sản phẩm</h2>
+                        <div class="related-products-carousel">
+                            <div class="single-product">
+                              
+                                <div class="product-f-image">
+                                    <img src="~/Content/img/Product/acer-predator-triton-300-pt315-53-71dj-i7-600x600.jpg" alt="">
+                                    <div class="product-hover">
+                                        <a href="#" id="addtocart" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Thêm vào giỏ</a>
+                                        <a href="https://localhost:44397/Product/Detail/35" class="view-details-link"><i class="fa fa-link"></i> Xem chi tiết</a>
+                                    </div>
+                                </div>
+
+                                <h2><a href="https://localhost:44397/Product/Detail/35">Acer Predator Trion 300</a></h2>
+
+                                <div class="product-carousel-price">
+                                    <ins>@Model.Price VNĐ</ins> <del>@Model.PriceSale VNĐ</del>
+                                </div>
+                            </div>
+                            <div class="single-product">
+                                <div class="product-f-image">
+                                    <img src="~/Content/img/Product/asus-rog-strix-gaming-g513ih-r7-4800h-8gb-512gb-4gb-600x600.jpg" alt="">
+                                    <div class="product-hover">
+                                        <a href="" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Thêm vào giỏt</a>
+                                        <a href="https://localhost:44397/Product/Detail/34" class="view-details-link"><i class="fa fa-link"></i> Xem chi tiết</a>
+                                    </div>
+                                </div>
+
+                                <h2><a href="https://localhost:44397/Product/Detail/34">Rog Strix Gaming</a></h2>
+                                <div class="product-carousel-price">
+                                    <ins>@Model.Price VNĐ</ins> <del>@Model.PriceSale VNĐ</del>
+                                </div>
+                            </div>
+                            <div class="single-product">
+                                <div class="product-f-image">
+                                    <img src="~/Content/img/Product/asus-tuf-gaming-fx506lhb-i5-hn188w-600x600.jpg" alt="">
+                                    <div class="product-hover">
+                                        <a href="" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Thêm vào giỏ</a>
+                                        <a href="https://localhost:44397/Product/Detail/33" class="view-details-link"><i class="fa fa-link"></i> Xem chi tiết</a>
+                                    </div>
+                                </div>
+
+                                <h2><a href="https://localhost:44397/Product/Detail/33">Tuf Gaming</a></h2>
+
+                                <div class="product-carousel-price">
+                                    <ins>@Model.Price VNĐ</ins> <del>@Model.PriceSale VNĐ</del>
+
+                                </div>
+                            </div>
+                            @*<div class="single-product">
+                                <div class="product-f-image">
+                                    <img src="img/product-4.jpg" alt="">
+                                    <div class="product-hover">
+                                        <a href="" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                        <a href="" class="view-details-link"><i class="fa fa-link"></i> See details</a>
+                                    </div>
+                                </div>
+
+                                <h2><a href="">Sony playstation microsoft</a></h2>
+
+                                <div class="product-carousel-price">
+                                    <ins>$200.00</ins> <del>$225.00</del>
+                                </div>
+                            </div>
+                            <div class="single-product">
+                                <div class="product-f-image">
+                                    <img src="img/product-5.jpg" alt="">
+                                    <div class="product-hover">
+                                        <a href="" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                        <a href="" class="view-details-link"><i class="fa fa-link"></i> See details</a>
+                                    </div>
+                                </div>
+
+                                <h2><a href="">Sony Smart Air Condtion</a></h2>
+
+                                <div class="product-carousel-price">
+                                    <ins>$1200.00</ins> <del>$1355.00</del>
+                                </div>
+                            </div>
+                            <div class="single-product">
+                                <div class="product-f-image">
+                                    <img src="img/product-6.jpg" alt="">
+                                    <div class="product-hover">
+                                        <a href="" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                        <a href="" class="view-details-link"><i class="fa fa-link"></i> See details</a>
+                                    </div>
+                                </div>
+
+                                <h2><a href="">Samsung gallaxy note 4</a></h2>
+
+                                <div class="product-carousel-price">
+                                    <ins>$400.00</ins>
+                                </div>
+                            </div>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

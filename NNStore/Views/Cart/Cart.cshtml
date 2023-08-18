@@ -1,0 +1,132 @@
+﻿@model  IEnumerable<NNStore.Context.CartModel>
+@{
+    ViewBag.Title = "Cart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script type="text/javascript">
+
+    $(function () {
+        $("#removecart").click(function () {
+            var model = {};
+            model.Id = $("#productid").val();
+            model.Price = $("#price").val();
+            model.Quantity = $("#quatity").val();
+            $.ajax({
+                type: "POST",
+                url: '/Cart/Remove',
+                data: JSON.stringify(model),
+                dataType: "json",
+                contentType: "application/json: charset=utf-8",
+                success: function () {
+                    alert("Xóa khỏi giỏ hàng hành công !")
+                    $('#CartCount').text(@Session["count"] - 1);
+                    $('#product-' + model.Id).remove();
+
+                },
+                Error: function () {
+                    alert("Lỗi khi xóa khỏi giỏ hàng !");
+                }
+            });
+            return false;
+        });
+    });
+
+</script>
+
+<section class="section-content padding-y">
+    <div class="container">
+        <div class="row">
+            <main class="col-md-9">
+                <div class="card">
+
+                    <table class="table table-borderless table-shopping-cart">
+                        <thead class="text-muted">
+                            <tr class="small text-uppercase">
+                                <th scope="col">Sản phẩm</th>
+                                <th scope="col" width="120">Số lượng</th>
+                                <th scope="col" width="120">Giá tiền</th>
+                                <th scope="col" class="text-right" width="200"> </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null)
+                            {
+
+                                foreach (var item in Model)
+                                {
+
+
+
+                                    <tr id="product-@item.Product.Id">
+                                        <td>
+                                            <figure class="itemside">
+                                                <figcaption class="info">
+                                                    <a href="#" class="title text-dark"><b>@item.Product.Name</b></a>
+                                                </figcaption>
+                                                <div class="aside"><img src="~/Content/img/Product/@item.Product.Img" class="img-sm" width="107" height="98"></div>
+
+                                            </figure>
+                                        </td>
+                                        <td>
+                                            <input type="text" value="@item.Quantity" id="quatity" />
+                                        </td>
+
+                                        <td>
+                                            <div class="price-wrap">
+
+                                                <input type="hidden" value="@item.Product.Price VNĐ" id="price" />
+                                                <var class="price">@item.Product.Price VNĐ</var>
+                                            </div> <!-- price-wrap .// -->
+                                        </td>
+
+                                        <td class="text-right">
+                                            <input type="hidden" value="@item.Product.Id" id="productid" />
+                                            <a data-original-title="Save to Wishlist" title="" href="#" class="btn btn-light" data-toggle="tooltip"> <i class="fa fa-heart"></i></a>
+                                            <a href="" class="btn btn-light" id="removecart"> Xoá</a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <h2> Không có sản phẩm trong giỏ hàng -_- </h2>
+                            }
+
+
+                        </tbody>
+                    </table>
+
+                    <div class="card-body border-top">
+                        <a href="@Url.Action("Payment", "Payment")" class="btn btn-primary float-md-right"> Thanh toán <i class="fa fa-chevron-right"></i> </a>
+                        <a href="@Url.Action("Index", "Home/Index")" class="btn btn-light"> <i class="fa fa-chevron-left"></i> Tiếp tục mua sắm </a>
+                    </div>
+                </div> <!-- card.// -->
+
+                <div class="alert alert-success mt-3">
+                    <p class="icontext"><i class="icon text-success fa fa-truck"></i> Kiện hàng sẽ được giao trong 4-5 ngày tới</p>
+                </div>
+
+            </main> <!-- col.// -->
+            <aside class="col-md-3">
+
+                <div class="card">
+                    <div class="card-body">
+                        <dl class="dlist-align">
+                            <dt>Tổng giá tiền:</dt>
+                            <dd class="text-right" id="total">@Session["total"] VNĐ</dd>
+                        </dl>
+
+                        
+
+                    </div> <!-- card-body.// -->
+                </div>  <!-- card .// -->
+            </aside> <!-- col.// -->
+        </div>
+
+    </div> <!-- container .//  -->
+</section>
+
+

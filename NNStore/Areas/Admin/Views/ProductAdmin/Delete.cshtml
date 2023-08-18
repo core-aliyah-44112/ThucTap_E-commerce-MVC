@@ -1,0 +1,164 @@
+﻿@model NNStore.Context.Product
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<section class="section-content padding-y">
+    <div class="card mx-auto" style="max-width:3500px; margin-left:50px;">
+        <article class="card-body">
+            <div class="content-wrapper">
+                <header class="mb-4"><h4 class="text-danger">Xoá sản phẩm</h4></header>
+
+                <h3>Bạn có chắc là xoá sản phẩm này không ?</h3>
+                <div>
+                    <h4>Thông tin sản phẩm</h4>
+                    <hr />    <dl class="dl-horizontal">
+    <dt>
+        @Html.DisplayNameFor(model => model.Name)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Name)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.Slug)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Slug)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.ShortDes)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.ShortDes)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.FullDescription)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.FullDescription)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.CategoryId)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.CategoryId)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.Img)
+    </dt>
+
+    <dd>
+    
+        <img id="Avatar" class="hide" src="~/Content/img/Product/@Model.Img" width="107" height="98" alt="" />
+    
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.BrandId)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.BrandId)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.TypeId)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.TypeId)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.Price)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Price)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.PriceSale)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.PriceSale)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.CreatedBy)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.CreatedBy)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.CreatedAy)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.CreatedAy)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.UpdatedBy)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.UpdatedBy)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.UpdatedAt)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.UpdatedAt)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.Deleted)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Deleted)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.Status)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Status)
+    </dd>
+
+</dl>
+
+                    @using (Html.BeginForm("Delete", "ProductAdmin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-actions no-color">
+                            <input type="submit" value="Xoá" class="btn btn-default" />
+                            <button> @Html.ActionLink("Quay lại", "Index")</button>
+
+                        </div>
+                    }
+                </div>
+            </div>
+        </article>
+    </div>
+</section>

@@ -1,0 +1,97 @@
+﻿@model PagedList.IPagedList<NNStore.Context.Brand>
+@using PagedList;
+
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<section class="section-content padding-y">
+    <div class="card mx-auto" style="max-width:3500px; margin-left:50px;">
+        <article class="card-body">
+            <div class="content-wrapper">
+                <header class="mb-4"><h4 class="text-danger"></h4></header>
+                <div class="form-horizontal" style="width :100%">
+
+                    <p>
+                        @Html.ActionLink("Thêm mới", "Create")
+                    </p>
+                    <table class="table">
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.FirstOrDefault().Name)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.FirstOrDefault().Img)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.FirstOrDefault().Slug)
+                            </th>
+                            @*<th>
+                                @Html.DisplayNameFor(model => model.FirstOrDefault().ShortDetail)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.FirstOrDefault().ShowOnHomePage)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.FirstOrDefault().DisplayOrder)
+                            </th>*@
+                            <th>
+                                @Html.DisplayNameFor(model => model.FirstOrDefault().CreatedOnUtc)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.FirstOrDefault().UpdateUtc)
+                            </th>
+                            @*<th>
+                                @Html.DisplayNameFor(model => model.FirstOrDefault().Deleted)
+                            </th>*@
+                            <th></th>
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+                                <td>
+                                    <img id="Avatar" class="hide" src="~/Content/img/Brand/@item.Img" width="107" height="98" alt="" />
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Slug)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ShortDetail)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ShowOnHomePage)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DisplayOrder)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CreatedOnUtc)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.UpdateUtc)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Deleted)
+                                </td>
+                                <td>
+                                    <button style="width:100px">@Html.ActionLink("Sửa", "Edit", new { id = item.Id })</button>  <br />
+                                    <button style="width:100px"> @Html.ActionLink("Chi tiết", "Details", new { id = item.Id })</button> <br />
+                                    <button style="width:100px">@Html.ActionLink("Xoá", "Delete", new { id = item.Id })</button>
+
+                                </td>
+                            </tr>
+                        }
+
+                    </table>
+                </div>
+            </div>
+        </article>
+    </div>
+</section>

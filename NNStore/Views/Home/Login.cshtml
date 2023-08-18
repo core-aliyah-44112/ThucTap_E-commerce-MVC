@@ -1,0 +1,57 @@
+﻿@model NNStore.Context.User
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script>$("#showHidePassword").click(function(){
+         if($(this).val() == "Show"){
+             $(this).val("Hide");
+             $("#password").attr("type", "text");
+         } else {
+             $(this).val("Show");
+             $("#password").attr("type", "password");
+         }
+    });</script>
+
+<section class="section-content padding-y">
+    <div class="card mx-auto" style="max-width:3500px; margin-left:600px;">
+        <article class="card-body">
+            <div class="content-wrapper">
+                <div class="row justify-content-md-center">
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header">
+                                
+                            </div>
+                            <div class="card-body">
+                                @using (Html.BeginForm("Login", "Home", FormMethod.Post))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Email, "Tài khoản")
+                                        @Html.TextBoxFor(m => m.Email, "", new { @class = "form-control", @placeholder = "Email" })
+
+                                    </div>
+                                    <div class="form-group">
+                                       
+                                        @Html.LabelFor(m => m.Password, "Mật khẩu")
+                                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Mật khẩu" })
+                                    </div>
+                                    <div class="form-group">
+                                        <a href="#" class="float-right">Quên mật khẩu?</a>
+                                        <label class="float-left custom-control custom-checkbox"> <input type="checkbox" class="custom-control-input" checked=""> <a class="custom-control-label"> Nhớ mật khẩu </a> </label>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="submit" name="submit" class="btn btn-primary" value="Đăng nhập" />
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </article>
+    </div>
+</section>
+
